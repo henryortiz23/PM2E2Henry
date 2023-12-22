@@ -31,8 +31,8 @@ namespace PM2E2Henry.Views
                 ObtenerUbicacion();
             }
 
-            
 
+            
         }
 
         async void ObtenerUbicacion()
@@ -41,6 +41,8 @@ namespace PM2E2Henry.Views
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Default);
                 var location = await Geolocation.GetLocationAsync(request);
+
+                
 
                 if (location != null)
                 {
@@ -59,7 +61,8 @@ namespace PM2E2Henry.Views
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Ocurrio un error\nError: "+ex.Message, "Ok");
+                await DisplayAlert("Error", "GPS desactivado, por favor active el GPS antes de regresar a esta pantalla", "Ok");
+                await Navigation.PopAsync();
             }
         }
 

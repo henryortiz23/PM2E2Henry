@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E2Henry.Views.NuevoSitioPage"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             Title="Registro de firma">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout
+            Spacing="25">
+
+                <StackLayout Padding="20,30,20,0">
+                    <Frame Padding="0" CornerRadius="20" Background="AliceBlue">
+                        <StackLayout>
+
+                            <StackLayout BackgroundColor="#1873b9" Padding="5,0,0,5" HeightRequest="40" >
+                                <Label Text="Su firma" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" FontSize="24"/>
+                            </StackLayout>
+
+                            <Image x:Name="imgFirma"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                HeightRequest="200"
+                               BackgroundColor="AliceBlue" IsVisible="false"/>
+
+                            <mct:DrawingView x:Name="firma"
+                                        LineColor="Black"
+                                        LineWidth="5"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand"
+                                        HeightRequest="200"
+                                        IsMultiLineModeEnabled="True"
+                                        DrawingLineCompleted="creandoFirma"
+                                        BackgroundColor="AliceBlue"/>
+                            <Button x:Name="btnBorrarFirma" Text="Borrar firma" Clicked="btnBorrar_Clicked" CornerRadius="0" HorizontalOptions="FillAndExpand" Background="#09bc8a" TextColor="White" FontSize="16"/>
+                        </StackLayout>
+                    </Frame>
+
+
+                    <Frame Padding="0" CornerRadius="20" Margin="0,5,0,20" Background="#e3ebff">
+                        <!---Audio-->
+                        <FlexLayout  HorizontalOptions="FillAndExpand" JustifyContent="SpaceBetween" VerticalOptions="Center">
+                            <Button x:Name="btnPlay" ImageSource="play_disabled.svg" CornerRadius="0" FlexLayout.Basis="50%" Style="{StaticResource ButtonStyle3}" Clicked="Play" IsEnabled="False"/>
+
+                            <Button x:Name="btnStart" Text="Grabar audio" CornerRadius="0" FlexLayout.Basis="50%" Clicked="StartAudio"/>
+                        </FlexLayout>
+                    </Frame>
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Descripcion" FontSize="16" Margin="0,20,0,0"/>
+                        <Frame Background="AliceBlue" CornerRadius="10" Padding="10,2,10,2" BorderColor="#1873b9" Margin="0">
+                            <Entry x:Name="entDescripcion" Background="transparent" Text=""/>
+                        </Frame>
+
+                        <FlexLayout Direction="Row" AlignContent="SpaceAround" >
+                            <StackLayout FlexLayout.Basis="70%" Spacing="10">
+                                <Frame Padding="8">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" >
+                                        <Label Text="Latitud: "/>
+                                        <Label x:Name="txtlatitud" Text="" TextColor="#09bc8a"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Padding="8">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                        <Label Text="Longitud: "/>
+                                        <Label x:Name="txtlongitud" Text="" TextColor="#09bc8a"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+
+                            <Frame FlexLayout.Basis="40%" Padding="0" Margin="5,0,0,0" x:Name="btnMap" IsVisible="false">
+                                <StackLayout Background="#314580" Padding="10">
+                                    <Image Source="map_go" WidthRequest="32" Aspect="Fill" HeightRequest="32" />
+                                    <Label Text="Mostrar ubicacion" TextColor="White" LineBreakMode="WordWrap" HeightRequest="40" HorizontalTextAlignment="Center"/>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Tapped_Mostrar_Ubicacion"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                        </FlexLayout>
+
+                    </StackLayout>
+
+                    <Image x:Name="ImageView"
+                    HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand"
+                   BackgroundColor="White" IsVisible="false"
+       HeightRequest="200"/>
+
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Button Text="Guardar" x:Name="btnGuardar" Clicked="btnGuardar_Clicked" Margin="10" HorizontalOptions="FillAndExpand" Background="#1873b9" FontSize="16" FontAttributes="Bold"/>
+                            <Button Text="Cancelar"  x:Name="btnCancelar"  Clicked="btnCancelar_clicked" Margin="10"  HorizontalOptions="FillAndExpand" Background="#1873b9" FontSize="16" FontAttributes="Bold"/>
+                        </StackLayout>
+
+                    </StackLayout>
+                </StackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <StackLayout VerticalOptions="Center" Margin="20"  Shadow="{StaticResource ShadowWindows}" x:Name="dialogSave" IsVisible="false">
+            <Frame>
+                <StackLayout HorizontalOptions="CenterAndExpand" Spacing="20" Padding="20">
+                    <Label Text="Guardando" Style="{StaticResource LabelSubTitle}" HorizontalOptions="CenterAndExpand"/>
+                    <Image Source="wait.svg" Margin="10"/>
+                    <Label Text="Guardando información, por favor espere a que se complete el proceso." Style="{StaticResource LabelCardText}"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>
